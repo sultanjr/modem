@@ -1,0 +1,52 @@
+minicom -D /dev/ttyUSB1
+
+imei :  867705021377342 / 08 8A 76 07 05 12 73 37 24
+at^nv=550,9,"08,8A,76,07,05,12,73,37,24"
+
+orbit : 864556040521169 / 08 8A 46 55 06 04 25 11 96
+at^nv=550,9,"08,8A,46,55,06,04,25,11,96" 
+
+ati				# info modem
+at^debug?			# debug info
+at^reset			# restart modem
+at^getimei			# cek imei modem
+at^slband?			# cek band
+at^slband=lte,1,3	# lock band lte 1&3, sesuaikan band yg di lock
+at^slband		# reset lock band to default
+at^ca_enable=0		# enable carrier aggregation
+at^ca_enable=1		# disable carrier aggregation
+at^ca_info?		# cek band carrier aggregation
+at+cfun=1		# set full functionality (sebelum lock WCDMA/LTE only)
+at^slmode=1,14		# set WCDMA only
+at^slmode=1,30		# set LTE only
+at^slmode=1,35		# set WCDMA & LTE
+at^usbtype		# cek jalan di mode USB 2.0/USB 3.0
+at^getltecat?		# cek modem cat
+at+gps=0		# disable gps
+at+volt			# cek voltase
+at+temp			# cek temperature
+Debug info;at^debug?
+At;at
+Ati;ati
+Temperature;at+temp
+Voltase;at+volt
+Ca info;at^ca_info?
+Display selected band;at^slband?
+Lock band 1;at^slband=lte,1
+Lock band 3;at^slband=lte,3
+Lock band 8;at^slband=lte,8
+Lock band 40;at^slband=lte,40
+Lock band 1 & 3;at^slband=lte,1,3
+Lock band 3 & 8;at^slband=lte,3,8
+Lock band 3 & 40;at^slband=lte,3,40
+Lock band 1, 3 & 8;at^slband=lte,1,3,8
+Lock band 3, 8 & 40;at^slband=lte,3,8,40
+Lock band 3, 40 & 40;at^slband=lte,3,40,40
+Lock band 1, 3 & 8;at^slband=lte,1,3,8
+Reset selected band;at^slband
+Enable ca;at^ca_enable=0
+Disable ca;at^ca_enable=1
+Lock 3g only;at^slmode=1,14
+Lock lte only;at^slmode=1,30
+Lte cat info;at^getltecat?
+Restart modem;at^reset
