@@ -1,0 +1,11 @@
+atc AT^HFREQINFO? - Get EARFCN value.
+
+atc AT^FREQLOCK? - Get current EARFCN lock value.
+
+atc AT^FREQLOCK=1,7675,\"03\" - Lock EARFCN value in LTE. [ Replace EARFCN in your current EARFCN. ]
+
+atc AT^FREQLOCK=0 - Disable or remove EARFCN lock value.
+
+	       28 means bands
+^HFREQINFO:0,6,28,7675,7675,15000,7125,7125,15000
+		  7675 means EARFCN
