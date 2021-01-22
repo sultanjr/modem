@@ -1,0 +1,14 @@
+buka terminal openWRT :
+" adb shell ifconfig " (untuk menampilakn ip's hp modem, dan mengetahui apakah konek inet)
+" adb tcpip 5555 " (untuk membuka port adb, agar bisa remote menggunakan scrcpy)
+"adb shell service call connectivity 33 i32 1 s16 text" (untuk mengaktifkan TETHERING USB , di hp)
+cek di browser, apakah sudah bisa inet 
+
+adb shell su -c service call connectivity 30 i32 1 turns off USB tethering.
+adb shell su -c service call connectivity 34 i32 0 
+
+For other Android versions replace 34 with the following  calling codes per Android version :
+4.4.4: 34
+5.1.0: 30
+6.0.1: 30
+7.0.0: 33

