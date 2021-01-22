@@ -1,0 +1,58 @@
+#!/bin/sh
+echo "Content-type: text/html"
+echo
+echo '<html><head><title>modem-info</title></head><body>'
+echo "<h2>Modem Info</h2><hr><pre>"
+
+fe="/tmp/f1.txt"
+printf "at^ca_info?\r" > /dev/ttyUSB2
+printf "AT^usbtype?\r" > /dev/ttyUSB2
+printf "ati\r" > /dev/ttyUSB2
+printf "at^debug?\r" > /dev/ttyUSB2
+printf "at^slband?\r" > /dev/ttyUSB2
+a1="$(cat /dev/ttyUSB2 > $fe & sleep 7; kill $!)"
+
+cat $fe |grep "Manufacturer"
+cat $fe |grep 'tsens_tz_sensor5' |sed "s/tsens_tz_sensor5/CHIP TEMP/g"
+
+b3="$(cat $fe |grep "USBTYPE:")"
+echo "USB TYPE: "${b3:10:6}
+		
+		DE=$(uci show network | grep "/dev/"${DEV##/*/} | cut -f2 -d.)
+		CT=$(ifstatus $DE | awk -F[:,] '/uptime/ {print $2}' | xargs)
+		if [ ! -z $CT ]; then
+			D=$(expr $CT / 60 / 60 / 24)
+			H=$(expr $CT / 60 / 60 % 24)
+			M=$(expr $CT / 60 % 60)
+			S=$(expr $CT % 60)
+			CONN_TIME=$(printf "%dd, %02d:%02d:%02d" $D $H $M $S)
+		fi
+		echo "UPTIME: "$CONN_TIME
+		RX=$(ifconfig wwan0 | awk -F[\(\)] '/bytes/ {printf "%s",$2}')
+		TX=$(ifconfig wwan0 | awk -F[\(\)] '/bytes/ {printf "%s",$4}')
+		echo "DW/UP: "$RX"/"$TX 
+		ipc=$(ifconfig | grep -i 'P-t' | sed 's/.*addr://; s/P-t-P:.*//')
+		echo "IPC: "$ipc
+
+
+
+
+cat $fe |grep "RS-SINR"
+cat $fe |grep "RSSI"
+cat $fe |grep "RSRP"
+cat $fe |grep "RSRQ"
+cat $fe |grep "EARFCN"
+cat $fe |grep "SLBAND: LTE" |sed "s/\^//g"
+b1="$(cat $fe |grep 'Band')"
+echo ""
+echo "$b1" | sed -n 1p
+echo "$b1" | sed -n 2p
+echo "$b1" | sed -n 3p
+echo "$b1" | sed -n 4p
+echo "<hr>"
+
+#####################################################3
+#nama file : info
+#attrib ke 755
+#lokasi /www/cgi-bin/info
+#broser [iprouter]/cgi-bin/info
